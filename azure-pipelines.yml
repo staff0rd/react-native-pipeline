@@ -14,8 +14,9 @@ steps:
   displayName: 'Install Node'
 
 - script: npm install
+  workingDirectory: src
   displayName: 'Install node dependencies'
-  
+
 - task: CocoaPods@0
   displayName: "Install CocoaPods dependencies"
   inputs:
