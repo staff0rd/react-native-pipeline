@@ -8,8 +8,16 @@ pool:
 
 name: $(Environment)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '9.7.1'
+  displayName: 'Install Node'
+
+- script: npm install
+  displayName: 'Install node dependencies'
+  
 - task: CocoaPods@0
-  displayName: "Install CocoaPods dependancies"
+  displayName: "Install CocoaPods dependencies"
   inputs:
     workingDirectory: src/ios
     forceRepoUpdate: false
