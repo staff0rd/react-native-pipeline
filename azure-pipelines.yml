@@ -84,19 +84,19 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
   
-# - task: AppCenterDistribute@3
-#   displayName: "Create a release on App Center"
-#   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-#   inputs:
-#     serverEndpoint: 'app-center'
-#     appSlug: 'TfNSW/OIM-Mobile-Application'
-#     appFile: 'output/package/OperationsMobileApplication_$(Build.BuildNumber).ipa'
-#     symbolsDsymFiles: 'output/archive/OperationsMobileApplication.xcarchive/dSYMs'
-#     releaseNotesOption: 'input'
-#     releaseNotesInput: |
-#       $(Build.SourceVersionMessage)
+- task: AppCenterDistribute@3
+  displayName: "Create a release on App Center"
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    serverEndpoint: 'app-center'
+    appSlug: 'stafford.williams/ReactNativePipeline-iOS'
+    appFile: 'output/package/ReactNativePipeline$(Build.BuildNumber).ipa'
+    symbolsDsymFiles: 'output/archive/ReactNativePipeline.xcarchive/dSYMs'
+    releaseNotesOption: 'input'
+    releaseNotesInput: |
+      $(Build.SourceVersionMessage)
       
-#       latest source: '$(Build.SourceVersion)'
+      latest source: '$(Build.SourceVersion)'
       
-#       An automated release from Azure DevOps
-#     destinationType: 'groups'
+      An automated release from Azure DevOps
+    destinationType: 'groups'
