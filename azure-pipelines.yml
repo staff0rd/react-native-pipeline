@@ -38,16 +38,19 @@ steps:
 #     failTaskOnFailedTests: true
 
 - task: InstallAppleCertificate@2
+  displayName: "Install Apple Certificate"
   inputs:
     certSecureFile: 'dev-certificate.p12'
     certPwd: '$(CertificatePassword)'
 
 - task: InstallAppleProvisioningProfile@1
+  displayName: "Install Apple provisioning profile"
   inputs:
     provisioningProfileLocation: 'secureFiles'
     provProfileSecureFile: 'dev.mobileprovision'
 
 - task: ios-bundle-version@1
+  displayName: "Set versions"
   inputs:
     sourcePath: 'src/ios/ReactNativePipeline/Info.plist'
     versionCodeOption: 'buildid'
