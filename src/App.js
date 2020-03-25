@@ -14,6 +14,8 @@ import {
   View,
   Text,
   StatusBar,
+  Image,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -23,7 +25,14 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import MyHeader from './MyHeader';
+
+const dog = require('./dog.png');
+const source = resolveAssetSource(dog);
+const dimensions = Dimensions.get('window');
+const imageWidth = dimensions.width;
+const imageHeight = imageWidth / source.width * source.height; 
 
 const App: () => React$Node = () => {
   return (
@@ -40,32 +49,11 @@ const App: () => React$Node = () => {
             </View>
           )}
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+            <Image
+              style={styles.image}
+              source ={dog}
+              resizeMode='stretch'
+              />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -109,6 +97,10 @@ const styles = StyleSheet.create({
     padding: 4,
     paddingRight: 12,
     textAlign: 'right',
+  },
+  image: {
+    width: imageWidth,
+    height: imageHeight,
   },
 });
 

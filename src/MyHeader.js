@@ -22,7 +22,7 @@ const MyHeader = (): Node => (
     source={require('./logo.png')}
     style={styles.background}
     imageStyle={styles.logo}>
-    <Text style={styles.text}>I changed this</Text>
+    <Text style={styles.text}>Doggo</Text>
   </ImageBackground>
 );
 
