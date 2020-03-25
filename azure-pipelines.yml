@@ -47,15 +47,12 @@ steps:
     provisioningProfileLocation: 'secureFiles'
     provProfileSecureFile: 'dev.mobileprovision'
 
-- task: CmdLine@2
-  displayName: "Replace Plist values"
+- task: ios-bundle-version@1
   inputs:
-    script: |
-      plutil -replace CFBundleShortVersionString -string $(Build.BuildNumber) ReactNativePipeline/Info.plist
-      plutil -replace CFBundleVersion -string $(Build.BuildNumber) ReactNativePipeline/Info.plist
-
-      ./transform-plist.py -e $(Environment)
-    workingDirectory: src/ios
+    sourcePath: 'src/ios/ReactNativePipeline/Info.plist'
+    versionCodeOption: 'buildid'
+    versionCode: '$(Build.BuildId)'
+    printFile: true
 
 - task: Xcode@5
   displayName: "Build Mobile Application"
