@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/cli": "^4.4.0",
     "react": "16.9.0",
     "react-native": "0.61.5"
   },
