@@ -13,6 +13,13 @@ variables:
   - group: AndroidKeystore
 
 steps:
+- task: NodeTool@0
+  displayName: 'Install Node'
+
+- script: npm install
+  workingDirectory: src
+  displayName: 'Install node dependencies'
+
 - task: Gradle@2
   inputs:
     workingDirectory: 'src/android'
