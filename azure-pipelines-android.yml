@@ -41,18 +41,27 @@ steps:
     jarsignerKeyPassword: '$(jarsignerKeyPassword)'
     zipalign: true
 
-- script: mv src/android/app/build/outputs/apk/release/app-release-unsigned.apk src/android/app/build/outputs/apk/release/app.release.apk
+- script: mv src/android/app/build/outputs/apk/release/app-release-unsigned.apk ReactNativePipeline$(Build.BuildNumber).apk
   displayName: 'Rename apk'
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: $(Build.SourcesDirectory)
-    contents: '**/*.release.apk' 
-    targetFolder: '$(build.artifactStagingDirectory)'
-    overWrite: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/release/'
-    artifactName: 'apks' 
+    pathtoPublish: ReactNativePipeline$(Build.BuildNumber).apk
+    artifactName: drop
     publishLocation: 'container'
+
+- task: AppCenterDistribute@3
+  displayName: "Create a release on App Center"
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    serverEndpoint: 'app-center'
+    appSlug: 'stafford.williams/ReactNativePipeline-Android'
+    appFile: 'ReactNativePipeline$(Build.BuildNumber).apk'
+    releaseNotesOption: 'input'
+    releaseNotesInput: |
+      $(Build.SourceVersionMessage)
+      
+      latest source: '$(Build.SourceVersion)'
+      
+      An automated release from Azure DevOps
+    destinationType: 'groups'
