@@ -16,7 +16,7 @@ steps:
 - task: NodeTool@0
   displayName: 'Install Node'
 
-- script: npm install
+- script: yarn
   workingDirectory: src
   displayName: 'Install node dependencies'
 
