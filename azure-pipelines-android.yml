@@ -23,14 +23,14 @@ steps:
     tasks: 'assembleDebug'
 
 - task: AndroidSigning@2
-inputs:
-  apkFiles: '**/*.apk'
-  jarsign: true
-  jarsignerKeystoreFile: 'android.keystore'
-  jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
-  jarsignerKeystoreAlias: 'react-native-pipeline-key'
-  jarsignerKeyPassword: '$(jarsignerKeyPassword)'
-  zipalign: true
+  inputs:
+    apkFiles: '**/*.apk'
+    jarsign: true
+    jarsignerKeystoreFile: 'android.keystore'
+    jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+    jarsignerKeystoreAlias: 'react-native-pipeline-key'
+    jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+    zipalign: true
 
 - task: CopyFiles@2
   inputs:
