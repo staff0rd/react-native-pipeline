@@ -41,7 +41,7 @@ steps:
     jarsignerKeyPassword: '$(jarsignerKeyPassword)'
     zipalign: true
 
-- script: mv android/app/build/outputs/apk/release/app-release-unsigned.apk android/app/build/outputs/apk/release/app-release.apk
+- script: mv src/android/app/build/outputs/apk/release/app-release-unsigned.apk src/android/app/build/outputs/apk/release/app-release.apk
   displayName: 'Rename apk'
 
 - task: CopyFiles@2
