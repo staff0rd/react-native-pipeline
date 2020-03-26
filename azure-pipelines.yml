@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-    - master
+    - master-paused
 
 pool:
   vmImage: 'macos-latest'
