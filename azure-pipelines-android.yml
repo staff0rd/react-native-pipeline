@@ -16,7 +16,7 @@ steps:
 - task: NodeTool@0
   displayName: 'Install Node'
   inputs:
-    versionSpec: '9.7.1'
+    versionSpec: '12.16.1'
 
 - script: yarn
   workingDirectory: src
