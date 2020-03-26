@@ -18,7 +18,7 @@ steps:
   inputs:
     versionSpec: '12.16.1'
 
-- script: yarn
+- script: npm install
   workingDirectory: src
   displayName: 'Install node dependencies'
 
