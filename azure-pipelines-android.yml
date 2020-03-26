@@ -7,34 +7,30 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-10.14'
+
+variables:
+  - group: AndroidKeystore
 
 steps:
 - task: Gradle@2
   inputs:
-    workingDirectory: ''
+    workingDirectory: 'src/android'
     gradleWrapperFile: 'gradlew'
     gradleOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleRelease'
+    tasks: 'assembleDebug'
 
- # /!\ For the purpose of the tutorial the passwords are visible, use "secret variable" instead like recommended by Microsoft:
- # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables
-
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk' 
-    apksign: true
-    apksignerKeystoreFile: 'production.keystore'
-    apksignerKeystorePassword: 'keystorepwd'
-    apksignerKeystoreAlias: 'key0'
-    apksignerKeyPassword: 'aliaspwd'
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
-    zipalign: true
+- task: AndroidSigning@2
+inputs:
+  apkFiles: '**/*.apk'
+  jarsign: true
+  jarsignerKeystoreFile: 'android.keystore'
+  jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+  jarsignerKeystoreAlias: 'react-native-pipeline-key'
+  jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+  zipalign: true
 
 - task: CopyFiles@2
   inputs:
